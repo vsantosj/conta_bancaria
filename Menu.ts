@@ -1,9 +1,17 @@
 import readlinesync = require("readline-sync");
 import { colors } from './src/util/Colors';
+import { Account } from "./src/models/Account";
 
 export function main() {
 
     let opcao: number;
+
+    const account = new Account(1,123,1,"Viviane", 1000000);
+    account.showAccountDetails();
+    account.withDraw(100);
+    account.showAccountDetails();
+    account.deposit(20);
+    account.showAccountDetails();
 
     while (true) {
 
@@ -68,7 +76,7 @@ export function main() {
                 console.log(colors.fg.whitestrong, 
                     "\n\nApagar uma Conta\n\n", colors.reset);
 
-                keyPress()
+                keyPress();
                 break;
             case 6:
                 console.log(colors.fg.whitestrong, 
