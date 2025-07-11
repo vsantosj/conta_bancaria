@@ -6,8 +6,8 @@ export abstract class Account {
     private _balance: number;
 
     //constructor
-    constructor(accountNumer: number, branchNumber: number, accountType: number, accountHolder: string, balance: number) {
-        this._accountNumber = accountNumer;
+    constructor(accountNumber: number, branchNumber: number, accountType: number, accountHolder: string, balance: number) {
+        this._accountNumber = accountNumber;
         this._branchNumber = branchNumber;
         this._accountType = accountType;
         this._accountHolder = accountHolder;
@@ -19,36 +19,36 @@ export abstract class Account {
     public get accountNumber(): number {
         return this._accountNumber;
     }
-    public set accountNumber(value: number) {
-        this._accountNumber = value;
+    public set accountNumber(number: number) {
+        this._accountNumber = number;
     }
 
     public get branchNumber(): number {
         return this._branchNumber;
     }
-    public set branchNumber(value: number) {
-        this._branchNumber = value;
+    public set branchNumber(number: number) {
+        this._branchNumber = number;
     }
 
     public get accountType(): number {
         return this._accountType;
     }
-    public set accountType(value: number) {
-        this._accountType = value;
+    public set accountType(number: number) {
+        this._accountType = number;
     }
 
     public get accountHolder(): string {
         return this._accountHolder;
     }
-    public set accountHolder(value: string) {
-        this._accountHolder = value;
+    public set accountHolder(number: string) {
+        this._accountHolder = number;
     }
 
     public get balance(): number {
         return this._balance;
     }
-    public set balance(value: number) {
-        this._balance = value;
+    public set balance(number: number) {
+        this._balance = number;
     }
 
 
@@ -58,15 +58,15 @@ export abstract class Account {
     //depositar
     public deposit(amount: number) {
         if (amount > 0) {
-            this._balance = this._balance + amount;
+            this.balance = this.balance + amount;
         } else {
-            console.log("Valor deve ser maior que zer.");
+            console.log("Valor deve ser maior que zero.");
         }
     }
 
     //ver saldo
     public getBalance(): number {
-        return this._balance;
+        return this.balance;
 
     }
 
