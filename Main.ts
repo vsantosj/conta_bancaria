@@ -1,21 +1,21 @@
 import readlinesync = require("readline-sync");
 import { colors } from './src/util/Colors';
-import { CurrentAcount } from "./src/models/CurrentAcount";
 import { SavingAccount } from "./src/models/SavingAccount";
-import { Account } from "./src/models/Account";
+import { CurrentAccount } from "./src/models/CurrentAcount";
 
 export function main() {
 
     let opcao: number;
 
-    const conta: Account = new CurrentAcount(1, 2, 3, "dsd", 100, 2)
-
-    const currentAccount: CurrentAcount = new CurrentAcount(1, 2, 3, "viviane", 100, 10);
+    const currentAccount: CurrentAccount = new CurrentAccount(1, 2, 3, "viviane", 100, 10);
     currentAccount.showAccountDetails();
     currentAccount.withDraw(1500);
     currentAccount.showAccountDetails();
     currentAccount.deposit(5000);
-    currentAccount.showAccountDetails()
+    currentAccount.showAccountDetails();
+    currentAccount.withDraw(5200);
+    currentAccount.showAccountDetails();
+    currentAccount.withDraw(5110);
 
     const savingAccount: SavingAccount = new SavingAccount(2, 3, 1, "Teste", 20, 12)
     savingAccount.showAccountDetails();
@@ -23,9 +23,8 @@ export function main() {
     savingAccount.showAccountDetails();
     savingAccount.deposit(5000);
     savingAccount.showAccountDetails()
-
+    savingAccount.withDraw(2000);
     savingAccount.showAccountDetails();
-
 
     while (true) {
         menu();

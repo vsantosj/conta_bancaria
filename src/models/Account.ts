@@ -7,7 +7,6 @@ export abstract class Account {
     private _accountHolder: string;
     private _balance: number;
 
-    //constructor
     constructor(accountNumber: number, branchNumber: number, accountType: number, accountHolder: string, balance: number) {
         this._accountNumber = accountNumber;
         this._branchNumber = branchNumber;
@@ -15,9 +14,7 @@ export abstract class Account {
         this._accountHolder = accountHolder;
         this._balance = balance;
     }
-
     //getter and setter
-
     public get accountNumber(): number {
         return this._accountNumber;
     }
@@ -53,11 +50,7 @@ export abstract class Account {
         this._balance = number;
     }
 
-
     //methods
-
-
-    //depositar
     public deposit(amount: number) {
         if (amount > 0) {
             console.log(colors.fg.green, `Deposito no valor de R$ ${amount} efetuado com sucesso`, colors.reset);
@@ -72,10 +65,9 @@ export abstract class Account {
         return this.balance;
 
     }
-
-    //sacar
+    //method abstract
     abstract withDraw(amount: number): boolean;
-    //mostrar detalhes da conta
+
     abstract showAccountDetails(): void;
 
 
