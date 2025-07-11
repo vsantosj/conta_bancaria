@@ -31,6 +31,7 @@ export class SavingAccount extends Account {
             console.log(colors.fg.red,"Saldo insufiente. ",colors.reset);
             return false;
         }
+        console.log(colors.fg.green, `Deposito no valor de R$ ${amount} efetuado com sucesso`, colors.reset);
         this.balance - amount;
 
         return true;

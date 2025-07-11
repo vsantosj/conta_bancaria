@@ -1,3 +1,5 @@
+import { colors } from "../util/Colors";
+
 export abstract class Account {
     private _accountNumber: number;
     private _branchNumber: number;
@@ -58,9 +60,10 @@ export abstract class Account {
     //depositar
     public deposit(amount: number) {
         if (amount > 0) {
+            console.log(colors.fg.green, `Deposito no valor de R$ ${amount} efetuado com sucesso`, colors.reset);
             this.balance = this.balance + amount;
         } else {
-            console.log("Valor deve ser maior que zero.");
+            console.log(colors.fg.red, "Valor inválido.", colors.reset);
         }
     }
 

@@ -28,7 +28,7 @@ export class CurrentAcount extends Account {
             console.log(colors.fg.red, "Saldo insuficiente.", colors.reset);
             return false;
         }
-
+        console.log(colors.fg.green, `Saque no valor de R$ ${amount} efetuado com sucesso`, colors.reset);
         this.balance -= amount;
         return true;
     }
