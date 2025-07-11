@@ -1,0 +1,8 @@
+export interface ContaRepository{
+    // 8 métodos
+
+    listarTodasContas():void;
+
+    sacar(valor: number): boolean;
+
+}

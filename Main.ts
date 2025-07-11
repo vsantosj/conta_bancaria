@@ -28,28 +28,7 @@ export function main() {
 
 
     while (true) {
-
-        console.log(colors.bg.black, colors.fg.yellow,
-            "*****************************************************");
-        console.log("                                                     ");
-        console.log("                BANCO DO BRAZIL COM Z                ");
-        console.log("                                                     ");
-        console.log("*****************************************************");
-        console.log("                                                     ");
-        console.log("            1 - Criar Conta                          ");
-        console.log("            2 - Listar todas as Contas               ");
-        console.log("            3 - Buscar Conta por Numero              ");
-        console.log("            4 - Atualizar Dados da Conta             ");
-        console.log("            5 - Apagar Conta                         ");
-        console.log("            6 - Sacar                                ");
-        console.log("            7 - Depositar                            ");
-        console.log("            8 - Transferir valores entre Contas      ");
-        console.log("            9 - Sair                                 ");
-        console.log("                                                     ");
-        console.log("*****************************************************");
-        console.log("                                                     ",
-            colors.reset);
-
+        menu();
         console.log("Entre com a opção desejada: ");
         opcao = readlinesync.questionInt("");
 
@@ -121,6 +100,28 @@ export function main() {
 
 }
 
+function menu() {
+    console.log(colors.bg.black, colors.fg.yellow,
+        "*****************************************************");
+    console.log("                                                     ");
+    console.log("                BANCO DO BRAZIL COM Z                ");
+    console.log("                                                     ");
+    console.log("*****************************************************");
+    console.log("                                                     ");
+    console.log("            1 - Criar Conta                          ");
+    console.log("            2 - Listar todas as Contas               ");
+    console.log("            3 - Buscar Conta por Numero              ");
+    console.log("            4 - Atualizar Dados da Conta             ");
+    console.log("            5 - Apagar Conta                         ");
+    console.log("            6 - Sacar                                ");
+    console.log("            7 - Depositar                            ");
+    console.log("            8 - Transferir valores entre Contas      ");
+    console.log("            9 - Sair                                 ");
+    console.log("                                                     ");
+    console.log("*****************************************************");
+    console.log("                                                     ",
+        colors.reset);
+}
 /* Função com os dados da pessoa desenvolvedora */
 function sobre(): void {
     console.log("\n*****************************************************");

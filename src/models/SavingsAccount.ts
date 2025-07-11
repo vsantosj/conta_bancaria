@@ -1,4 +1,5 @@
 
+import { colors } from "../util/Colors";
 import { Account } from "./Account";
 
 export class SavingAccount extends Account {
@@ -6,16 +7,16 @@ export class SavingAccount extends Account {
     private _accountAnniversaryMonth: number;
 
 
-    constructor(accountNumer: number, branchNumber: number, accountType: number, accountHolder: string, balance: number, accountAnniversaryMonth: number) {
-        super(accountNumer, branchNumber, accountType, accountHolder, balance);
+    constructor(accountNumber: number, branchNumber: number, accountType: number, accountHolder: string, balance: number, accountAnniversaryMonth: number) {
+        super(accountNumber, branchNumber, accountType, accountHolder, balance);
         this._accountAnniversaryMonth = accountAnniversaryMonth;
     }
 
-    public getaccountAnniversaryMonth(): number {
+    public get accountAnniversaryMonth(): number {
         return this._accountAnniversaryMonth;
     }
-    public setaccountAnniversaryMonth(value: number) {
-        this._accountAnniversaryMonth = value;
+    public set accountAnniversaryMonth(number: number) {
+        this._accountAnniversaryMonth = number;
     }
 
     public withDraw(amount: number): boolean {
@@ -23,11 +24,11 @@ export class SavingAccount extends Account {
         const isInsufficientBalance = this.balance < amount;
 
         if (isAmountInvalid) {
-            console.log("Digite um valor maior que 0. ");
+            console.log(colors.fg.red,"Valor inválido. ",colors.reset);
             return false;
         }
         if (isInsufficientBalance) {
-            console.log("Saldo insufiente. ");
+            console.log(colors.fg.red,"Saldo insufiente. ",colors.reset);
             return false;
         }
         this.balance - amount;

@@ -1,11 +1,12 @@
+import { colors } from "../util/Colors";
 import { Account } from "./Account";
 
 export class CurrentAcount extends Account {
     private _limit: number;
 
 
-    constructor(accountNumer: number, branchNumber: number, accountType: number, accountHolder: string, balance: number, limit: number) {
-        super(accountNumer, branchNumber, accountType, accountHolder, balance);
+    constructor(accountNumber: number, branchNumber: number, accountType: number, accountHolder: string, balance: number, limit: number) {
+        super(accountNumber, branchNumber, accountType, accountHolder, balance);
         this._limit = limit;
     }
 
@@ -19,12 +20,12 @@ export class CurrentAcount extends Account {
 
     public withDraw(amount: number): boolean {
         if (amount <= 0) {
-            console.log("Valor inválido.");
+            console.log(colors.fg.red, "Valor inválido.", colors.reset);
             return false;
         }
 
         if (this.balance + this.limit < amount) {
-            console.log("Saldo insuficiente.");
+            console.log(colors.fg.red, "Saldo insuficiente.", colors.reset);
             return false;
         }
 
