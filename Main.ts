@@ -1,37 +1,25 @@
 import readlinesync = require("readline-sync");
-import { colors } from './src/util/Colors';
 import { SavingAccount } from "./src/models/SavingAccount";
 import { CurrentAccount } from "./src/models/CurrentAcount";
+import { AccountController } from "./src/controller/AccountController";
+import { colors } from "./src/util/Colors";
 
 export function main() {
 
-    let opcao: number;
+    const readlineSync = require("readline-sync");
 
-    const currentAccount: CurrentAccount = new CurrentAccount(1, 2, 3, "viviane", 100, 10);
-    currentAccount.showAccountDetails();
-    currentAccount.withDraw(1500);
-    currentAccount.showAccountDetails();
-    currentAccount.deposit(5000);
-    currentAccount.showAccountDetails();
-    currentAccount.withDraw(5200);
-    currentAccount.showAccountDetails();
-    currentAccount.withDraw(5110);
+    let accounts: AccountController = new AccountController();
+    let option, branchNumber, balance, limit, type, accountAnniversaryMonth, accountNumber: number;
+    let accountHolder: string;
+    const accountsType = ["Conta Corrente", "Conta Poupança"];
 
-    const savingAccount: SavingAccount = new SavingAccount(2, 3, 1, "Teste", 20, 12)
-    savingAccount.showAccountDetails();
-    savingAccount.withDraw(1500);
-    savingAccount.showAccountDetails();
-    savingAccount.deposit(5000);
-    savingAccount.showAccountDetails()
-    savingAccount.withDraw(2000);
-    savingAccount.showAccountDetails();
 
     while (true) {
         menu();
         console.log("Entre com a opção desejada: ");
-        opcao = readlinesync.questionInt("");
+        option = readlinesync.questionInt("");
 
-        if (opcao == 9) {
+        if (option == 9) {
             console.log(colors.fg.greenstrong,
                 "\nBanco do Brazil com Z - O seu Futuro começa aqui!");
             sobre();
@@ -39,34 +27,105 @@ export function main() {
             process.exit(0);
         }
 
-        switch (opcao) {
+        switch (option) {
             case 1:
-                console.log(colors.fg.whitestrong,
-                    "\n\nCriar Conta\n\n", colors.reset);
+            case 1:
+                console.log(colors.fg.whitestrong, "\n\nCriar Conta\n\n", colors.reset);
+
+                console.log("Digite o Número da agência: ");
+                branchNumber = readlineSync.questionInt("");
+
+                console.log("Digite o Nome do Titular da conta: ");
+                accountHolder = readlineSync.question("");
+
+                console.log("\nDigite o tipo da Conta: ");
+                type = readlineSync.keyInSelect(accountsType, "", { cancel: false }) + 1;
+
+                console.log("\nDigite o Saldo da conta (R$): ");
+                balance = readlineSync.questionFloat("");
+
+                switch (type) {
+                    case 1:
+                        console.log("Digite o limite da Conta (R$): ");
+                        limit = readlineSync.questionFloat("");
+                        accounts.createAccount(
+                            new CurrentAccount(accounts.generateAccountNumber(), branchNumber, type, accountHolder, balance, limit));
+                        break;
+                    case 2:
+                        console.log("Digite o Dia do aniversário da Conta Poupança:");
+                        accountAnniversaryMonth = readlineSync.questionInt("");
+                        accounts.createAccount(new SavingAccount(accounts.generateAccountNumber(), branchNumber, type, accountHolder, balance, accountAnniversaryMonth));
+                        break;
+                }
 
                 keyPress()
                 break;
             case 2:
                 console.log(colors.fg.whitestrong,
                     "\n\nListar todas as Contas\n\n", colors.reset);
+                accounts.listAllAccounts();
 
                 keyPress()
                 break;
             case 3:
                 console.log(colors.fg.whitestrong,
                     "\n\nConsultar dados da Conta - por número\n\n", colors.reset);
-
+                console.log("Digite o número da Conta: ");
+                accountNumber = readlineSync.questionInt("");
+                accounts.findByAccountNumber(accountNumber);
                 keyPress()
                 break;
             case 4:
                 console.log(colors.fg.whitestrong,
                     "\n\nAtualizar dados da Conta\n\n", colors.reset);
 
+                console.log("Digite o número da Conta: ");
+                accountNumber = readlinesync.questionInt("");
+
+                let account = accounts.findByArray(accountNumber);
+
+                if (account != null) {
+
+                    console.log("Digite o Número da agência: ");
+                    branchNumber = readlinesync.questionInt("");
+
+                    console.log("Digite o Nome do Titular da conta: ");
+                    accountHolder = readlinesync.question("");
+
+                    type = account.accountType;
+
+                    console.log("\nDigite o Saldo da conta (R$): ");
+                    balance = readlinesync.questionFloat("");
+
+                    switch (type) {
+                        case 1:
+                            console.log("Digite o Limite da Conta (R$): ");
+                            limit = readlinesync.questionFloat("");
+                            accounts.updateAccount(
+                                new CurrentAccount(accountNumber, branchNumber, type, accountHolder, balance, limit)
+                            );
+                            break;
+                        case 2:
+                            console.log("Digite o Dia do aniversário da Conta Poupança: ");
+                            accountAnniversaryMonth = readlinesync.questionInt("");
+                            accounts.updateAccount(new SavingAccount(accountNumber, branchNumber, type, accountHolder, balance,
+                                accountAnniversaryMonth));
+                            break;
+                    }
+
+                } else {
+                    console.log(colors.fg.red, `\nA Conta numero: ${accountNumber}
+                        " não foi encontrada!`, colors.reset);
+                }
+
                 keyPress()
                 break;
             case 5:
                 console.log(colors.fg.whitestrong,
                     "\n\nApagar uma Conta\n\n", colors.reset);
+                console.log("Digite o número da Conta: ");
+                accountNumber = readlineSync.questionInt("");
+                accounts.deleteAccount(accountNumber);
 
                 keyPress();
                 break;
