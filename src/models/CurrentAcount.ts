@@ -17,16 +17,16 @@ export class CurrentAccount extends Account {
         this._limit = amount;
     }
     //methods
-    public withDraw(amount: number): boolean {
+    public withDraw(amount: number, silent: boolean = false): boolean {
         if (amount <= 0) {
-            console.log(colors.fg.red, "Valor inválido.", colors.reset);
+            if (!silent) console.log(colors.fg.red, "Valor inválido.", colors.reset);
             return false;
         }
         if (this.balance + this.limit < amount) {
-            console.log(colors.fg.red, "Saldo insuficiente.", colors.reset);
+            if (!silent) console.log(colors.fg.red, "Saldo insuficiente.", colors.reset);
             return false;
         }
-        console.log(colors.fg.green, `Saque no valor de R$ ${amount} efetuado com sucesso`, colors.reset);
+        if (!silent) console.log(colors.fg.green, `Saque no valor de R$ ${amount} efetuado com sucesso`, colors.reset);
         this.balance -= amount;
         return true;
     }

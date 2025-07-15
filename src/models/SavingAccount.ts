@@ -19,19 +19,19 @@ export class SavingAccount extends Account {
     }
 
     //methods 
-    public withDraw(amount: number): boolean {
+    public withDraw(amount: number, silent: boolean = false): boolean {
         const isAmountInvalid: boolean = amount <= 0;
         const isInsufficientBalance = this.balance < amount;
 
         if (isAmountInvalid) {
-            console.log(colors.fg.red, "Valor inválido. ", colors.reset);
+            if (!silent) console.log(colors.fg.red, "Valor inválido. ", colors.reset);
             return false;
         }
         if (isInsufficientBalance) {
-            console.log(colors.fg.red, "Saldo insufiente. ", colors.reset);
+            if (!silent) console.log(colors.fg.red, "Saldo insufiente. ", colors.reset);
             return false;
         }
-        console.log(colors.fg.green, `Saque no valor de R$ ${amount} efetuado com sucesso`, colors.reset);
+        if (!silent) console.log(colors.fg.green, `Saque no valor de R$ ${amount} efetuado com sucesso`, colors.reset);
         this.balance -= amount;
 
         return true;

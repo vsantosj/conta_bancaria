@@ -1,4 +1,3 @@
-import { constants } from "buffer";
 import { Account } from "../models/Account";
 import { AccountRepository } from "../repository/AccountRepository";
 import { colors } from "../util/Colors";
@@ -48,33 +47,59 @@ export class AccountController implements AccountRepository {
 
 
     }
-    withDraw(accountNumber: number, amount: number): void {
+    withDraw(accountNumber: number, amount: number, silent: boolean = false): void {
         let account = this.findByArray(accountNumber);
 
         if (account != null) {
-            if (account.withDraw(amount) == true) {
-                console.log(colors.fg.green, `\nO Saque da na Conta ${accountNumber} foi realizado com sucesso!`, colors.reset);
+            if (account.withDraw(amount, silent) == true) {
+                if (!silent) console.log(colors.fg.green, `\nO Saque da na Conta ${accountNumber} foi realizado com sucesso!`, colors.reset);
             }
         } else {
-            console.log(colors.fg.red, `\nO número da conta ${accountNumber} não foi encontrado! `, colors.reset)
+            if (!silent) console.log(colors.fg.red, `\nO número da conta ${accountNumber} não foi encontrado! `, colors.reset)
         }
     }
 
 
-    deposit(accountNumber: number, amount: number): void {
+    deposit(accountNumber: number, amount: number, silent: boolean = false): void {
         let account = this.findByArray(accountNumber);
 
         if (account != null) {
             account.deposit(amount);
-            console.log(colors.fg.green, `\nO Depósito na Conta ${accountNumber} foi realizado com sucesso!`, colors.reset);
+            if (!silent) console.log(colors.fg.green, `\nO Depósito na Conta ${accountNumber} foi realizado com sucesso!`, colors.reset);
         } else {
-            console.log(colors.fg.red, `\nO número da conta ${accountNumber} não foi encontrado! `, colors.reset)
+            if (!silent) console.log(colors.fg.red, `\nO número da conta ${accountNumber} não foi encontrado! `, colors.reset)
         }
     }
 
     transfer(sourceAccountNumber: number, destinationAccountNumber: number, amount: number): void {
-        throw new Error("Method not implemented.");
+        const sourceAccount = this.findByArray(sourceAccountNumber);
+        const destinationAccount = this.findByArray(destinationAccountNumber);
+
+        if (sourceAccount && destinationAccount) {
+            const withdrawn = sourceAccount.withDraw(amount, true);
+            if (withdrawn) {
+                destinationAccount.deposit(amount, true);
+                console.log(
+                    colors.fg.green,
+                    `\nTransferência de R$ ${amount.toFixed(2)} da conta ${sourceAccountNumber} para a conta ${destinationAccountNumber} realizada com sucesso!`,
+                    colors.reset
+                );
+            } else {
+                console.log(
+                    colors.fg.red,
+                    `\nTransferência não realizada. Saldo insuficiente na conta ${sourceAccountNumber}.`,
+                    colors.reset
+                );
+            }
+        } else {
+            console.log(
+                colors.fg.red,
+                `\nConta(s) não encontrada(s): ${!sourceAccount ? sourceAccountNumber : ""} ${!destinationAccount ? destinationAccountNumber : ""}`,
+                colors.reset
+            );
+        }
     }
+
 
     //Auxiliary Methods
 
@@ -95,3 +120,4 @@ export class AccountController implements AccountRepository {
 
 
 }
+

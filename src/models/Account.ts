@@ -51,12 +51,12 @@ export abstract class Account {
     }
 
     //methods
-    public deposit(amount: number) {
+    public deposit(amount: number, silent: boolean = false) {
         if (amount > 0) {
-            console.log(colors.fg.green, `Deposito no valor de R$ ${amount} efetuado com sucesso`, colors.reset);
+            if (!silent)console.log(colors.fg.green, `Deposito no valor de R$ ${amount} efetuado com sucesso`, colors.reset);
             this.balance = this.balance + amount;
         } else {
-            console.log(colors.fg.red, "Valor inválido.", colors.reset);
+            if (!silent)console.log(colors.fg.red, "Valor inválido.", colors.reset);
         }
     }
 
@@ -66,7 +66,7 @@ export abstract class Account {
 
     }
     //method abstract
-    abstract withDraw(amount: number): boolean;
+    abstract withDraw(amount: number, silent: boolean): boolean;
 
     abstract showAccountDetails(): void;
 

@@ -9,7 +9,7 @@ export function main() {
     const readlineSync = require("readline-sync");
 
     let accounts: AccountController = new AccountController();
-    let option, branchNumber, balance, limit, type, accountAnniversaryMonth, amount, destinationAccountNumber, accountNumber: number;
+    let option, branchNumber, balance, limit, type, accountAnniversaryMonth, amount, sourceAccountNumber, destinationAccountNumber, accountNumber: number;
     let accountHolder: string;
     const accountsType = ["Conta Corrente", "Conta Poupança"];
 
@@ -161,6 +161,16 @@ export function main() {
             case 8:
                 console.log(colors.fg.whitestrong,
                     "\n\nTransferência entre Contas\n\n", colors.reset);
+
+                console.log("Digite o número da conta origem: ");
+                sourceAccountNumber = readlineSync.questionInt("");
+
+                console.log("Digite o número da conta destino: ");
+                destinationAccountNumber = readlineSync.questionInt("");
+                console.log("Digite o valor: ");
+                amount = readlineSync.questionFloat("");
+
+                accounts.transfer(sourceAccountNumber, destinationAccountNumber, amount);
 
                 keyPress()
                 break;
