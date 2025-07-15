@@ -50,22 +50,19 @@ export abstract class Account {
         this._balance = number;
     }
 
-    //methods
     public deposit(amount: number, silent: boolean = false) {
         if (amount > 0) {
-            if (!silent)console.log(colors.fg.green, `Deposito no valor de R$ ${amount} efetuado com sucesso`, colors.reset);
+            if (!silent) console.log(colors.fg.green, `Deposito no valor de R$ ${amount} efetuado com sucesso`, colors.reset);
             this.balance = this.balance + amount;
         } else {
-            if (!silent)console.log(colors.fg.red, "Valor inválido.", colors.reset);
+            if (!silent) console.log(colors.fg.red, "Valor inválido.", colors.reset);
         }
     }
 
-    //ver saldo
     public getBalance(): number {
         return this.balance;
-
     }
-    //method abstract
+
     abstract withDraw(amount: number, silent: boolean): boolean;
 
     abstract showAccountDetails(): void;

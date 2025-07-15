@@ -22,7 +22,7 @@ export function main() {
         if (option == 9) {
             console.log(colors.fg.greenstrong,
                 "\nBanco do Brazil com Z - O seu Futuro começa aqui!");
-            sobre();
+            about();
             console.log(colors.reset, "");
             process.exit(0);
         }
@@ -208,7 +208,7 @@ function menu() {
         colors.reset);
 }
 /* Função com os dados da pessoa desenvolvedora */
-function sobre(): void {
+function about(): void {
     console.log("\n*****************************************************");
     console.log("Projeto Desenvolvido por: ");
     console.log("Viviane Santos - vivianes@genstudents.org");
