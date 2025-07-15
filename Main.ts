@@ -9,7 +9,7 @@ export function main() {
     const readlineSync = require("readline-sync");
 
     let accounts: AccountController = new AccountController();
-    let option, branchNumber, balance, limit, type, accountAnniversaryMonth, accountNumber: number;
+    let option, branchNumber, balance, limit, type, accountAnniversaryMonth, amount, destinationAccountNumber, accountNumber: number;
     let accountHolder: string;
     const accountsType = ["Conta Corrente", "Conta Poupança"];
 
@@ -132,12 +132,29 @@ export function main() {
             case 6:
                 console.log(colors.fg.whitestrong,
                     "\n\nSaque\n\n", colors.reset);
+                console.log("Digite o número da conta: ");
+                accountNumber = readlineSync.questionInt("");
+
+                console.log("Digite o valor do saque: ");
+                amount = readlineSync.questionFloat("");
+
+                accounts.withDraw(accountNumber, amount);
 
                 keyPress()
                 break;
+
             case 7:
                 console.log(colors.fg.whitestrong,
                     "\n\nDepósito\n\n", colors.reset);
+
+                console.log("Digite o número da conta: ");
+                accountNumber = readlineSync.questionInt("");
+
+                console.log("Digite o valor do Depósito: ");
+                amount = readlineSync.questionFloat("");
+
+                accounts.deposit(accountNumber, amount);
+
 
                 keyPress()
                 break;

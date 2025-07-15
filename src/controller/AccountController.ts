@@ -48,12 +48,30 @@ export class AccountController implements AccountRepository {
 
 
     }
-    withDraw(number: number, amount: number): void {
-        throw new Error("Method not implemented.");
+    withDraw(accountNumber: number, amount: number): void {
+        let account = this.findByArray(accountNumber);
+
+        if (account != null) {
+            if (account.withDraw(amount) == true) {
+                console.log(colors.fg.green, `\nO Saque da na Conta ${accountNumber} foi realizado com sucesso!`, colors.reset);
+            }
+        } else {
+            console.log(colors.fg.red, `\nO número da conta ${accountNumber} não foi encontrado! `, colors.reset)
+        }
     }
-    deposit(number: number, amount: number): void {
-        throw new Error("Method not implemented.");
+
+
+    deposit(accountNumber: number, amount: number): void {
+        let account = this.findByArray(accountNumber);
+
+        if (account != null) {
+            account.deposit(amount);
+            console.log(colors.fg.green, `\nO Depósito na Conta ${accountNumber} foi realizado com sucesso!`, colors.reset);
+        } else {
+            console.log(colors.fg.red, `\nO número da conta ${accountNumber} não foi encontrado! `, colors.reset)
+        }
     }
+
     transfer(sourceAccountNumber: number, destinationAccountNumber: number, amount: number): void {
         throw new Error("Method not implemented.");
     }

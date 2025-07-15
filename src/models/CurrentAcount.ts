@@ -1,3 +1,4 @@
+import { BlockList } from "net";
 import { colors } from "../util/Colors";
 import { Account } from "./Account";
 
@@ -29,6 +30,7 @@ export class CurrentAccount extends Account {
         this.balance -= amount;
         return true;
     }
+
 
     public showAccountDetails(): void {
         console.log("\n\n*****************************************************");
