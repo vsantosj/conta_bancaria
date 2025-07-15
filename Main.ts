@@ -9,10 +9,37 @@ export function main() {
     const readlineSync = require("readline-sync");
 
     let accounts: AccountController = new AccountController();
-    let option, branchNumber, balance, limit, type, accountAnniversaryMonth, amount, sourceAccountNumber, destinationAccountNumber, accountNumber: number;
+
+    let option, limit, accountAnniversaryMonth, amount, sourceAccountNumber, destinationAccountNumber, accountNumber: number;
+    let branchNumber: number;
+    let type: number;
     let accountHolder: string;
+    let balance: number;
     const accountsType = ["Conta Corrente", "Conta Poupança"];
 
+    //arrow functions
+    const createCurrentAccount = () => {
+        console.log("Digite o limite da Conta (R$): ");
+        limit = readlineSync.questionFloat("");
+        accounts.createAccount(
+            new CurrentAccount(accounts.generateAccountNumber(), branchNumber, type, accountHolder, balance, limit));
+    };
+
+    const createSavingAccount = () => {
+        console.log("Digite o dia do aniversário da Conta Poupança:");
+        const accountAnniversaryDay = readlineSync.questionInt("");
+
+        const newAccount = new SavingAccount(
+            accounts.generateAccountNumber(),
+            branchNumber,
+            type,
+            accountHolder,
+            balance,
+            accountAnniversaryDay
+        );
+
+        accounts.createAccount(newAccount);
+    }
 
     while (true) {
         menu();
@@ -28,7 +55,6 @@ export function main() {
         }
 
         switch (option) {
-            case 1:
             case 1:
                 console.log(colors.fg.whitestrong, "\n\nCriar Conta\n\n", colors.reset);
 
@@ -46,15 +72,10 @@ export function main() {
 
                 switch (type) {
                     case 1:
-                        console.log("Digite o limite da Conta (R$): ");
-                        limit = readlineSync.questionFloat("");
-                        accounts.createAccount(
-                            new CurrentAccount(accounts.generateAccountNumber(), branchNumber, type, accountHolder, balance, limit));
+                        createCurrentAccount();
                         break;
                     case 2:
-                        console.log("Digite o Dia do aniversário da Conta Poupança:");
-                        accountAnniversaryMonth = readlineSync.questionInt("");
-                        accounts.createAccount(new SavingAccount(accounts.generateAccountNumber(), branchNumber, type, accountHolder, balance, accountAnniversaryMonth));
+                        createSavingAccount();
                         break;
                 }
 
