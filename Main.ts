@@ -41,6 +41,7 @@ export function main() {
         accounts.createAccount(newAccount);
     }
 
+
     while (true) {
         menu();
         console.log("Entre com a opção desejada: ");
