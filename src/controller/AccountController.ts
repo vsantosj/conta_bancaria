@@ -9,8 +9,6 @@ export class AccountController implements AccountRepository {
     private accountNumberSequence: number = 0;
 
 
-
-
     findByAccountNumber(accountNumber: number): void {
         let findAccount = this.findByArray(accountNumber);
         if (findAccount != null) {
